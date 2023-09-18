@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Part 1 - Raspberry Pi 3 OS"
+date:   2023-09-18 00:46:38 +0900
+categories: raspberry pi os
+---
+
+Raspi2でのブートの仕方を理解した。Raspi3で動作するようにarm-v8で書き換えて、qemuで動作できるようになった。
+次はSDカードにロードしてRaspi3で動作できることが目標。
+とは言っても画面上に文字を出さないと確認できないよね...
+
+４つのCPUが一斉に命令を実行するが、and...の部分で0xFFに該当しないCPUコアが停止し、シングルコアとして動作する。
+どうやってマルチコアを動作させるOSを書くんだろう？
+
+{% highlight asm %}
+.section ".text.boot"
+
+.global _start
+
+_start:
+    mrs x0, mpidr_el1
+    and x0, x0, #0xFF
+    cbz    x0, master
+    b halt
+
+master:
+    mov sp, #0x8000
+
+    adr x0, bss_begin
+    adr x1, bss_end
+    sub x1, x1, x0
+1:
+memzero:
+    str xzr, [x0], #8
+    sub x1, x1, #8
+    bgt 1b
+
+    bl kernel_main
+
+halt:
+    wfe
+    b halt
+{% endhighlight %}
