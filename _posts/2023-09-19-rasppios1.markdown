@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Part 1 - Raspberry Pi 3 OS"
-date:   2023-09-18 00:46:38 +0900
-categories: raspberry pi os
+title:  "RapiOS-1"
+categories: jekyll update
 ---
+
 
 Raspi2でのブートの仕方を理解した。Raspi3で動作するようにarm-v8で書き換えて、qemuで動作できるようになった。
 次はSDカードにロードしてRaspi3で動作できることが目標。
