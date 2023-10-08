@@ -1,8 +1,11 @@
 ---
 layout: post
 title:  "GotMyIPod"
+date: 2023-10-05 12:00:00 +0900
 categories: jekyll update
 ---
+
+<h1> {{page.date}}</h1>
 
 # なぜ私はiPodを手に入れたか
 先日ipodが、誰かの家から私の手元にやってきた。<br>
